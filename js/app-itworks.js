@@ -14,16 +14,12 @@ $(function(){
   function calculator (event){
     var $input = $(event.target).text();
 
-  function changeValues (p0,p1,p2,p3){
-    values = {0:p0,1:p1,2:p2,3:p3}
-  }
-
     if ($input >= 0){
       if(values[3] === true){
-        changeValuesvalues = {0: '', 1: '', 2: '', 3: false};
+        values = {0: '', 1: '', 2: '', 3: false};
       }
-      $display.text($display.text() + $input);
       values[0] += $input;
+      $display.text(values[0]);
       values[3] = false;
     } else if ((jQuery.inArray($input,["+","-","x","÷"])) > -1){
       if (values[3] === true){
@@ -42,16 +38,18 @@ $(function(){
       if (Number(values[0]) === ''){
         values[1] = $input;
       }
+      $display.text(values[2]);
     } else if ($input === '='){
       if (values[1] === ''){
 
       }
       values[2] = operations[values[1]](values[2],values[0]);
       values[3] = true;
+      $display.text(values[2]);
     } else {
       values = {0: '', 1: '', 2: '', 3: false};
+      $display.text(values[2]);
     }
-    $display.text(values[2]);
   }
 
   function changeDisplay (input){
