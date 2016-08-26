@@ -14,70 +14,44 @@ $(function(){
   function calculator (event){
     var $input = $(event.target).text();
 
+  function changeValues (p0,p1,p2,p3){
+    values = {0:p0,1:p1,2:p2,3:p3}
+  }
+
     if ($input >= 0){
-      // console.log("adding number");
       if(values[3] === true){
-        values = {0: '', 1: '', 2: '', 3: false};
+        changeValuesvalues = {0: '', 1: '', 2: '', 3: false};
       }
       $display.text($display.text() + $input);
       values[0] += $input;
-      // console.log("=========Number=========");
-      // console.log("values[0] is " + values[0]);
-      // console.log("values[1] is " + values[1]);
-      // console.log("values[2] is " + values[2]);
       values[3] = false;
     } else if ((jQuery.inArray($input,["+","-","x","÷"])) > -1){
-      // console.log("=========Operator=======");
       if (values[3] === true){
-        // console.log("First");
         values[0] = '';
         values[1] = $input
         values[3] = false;
-        // $display.text(values[2]);
       } else if (values[2] === ''){
-        // console.log("Second");
         values[2] = values[0];
         values[1] = $input;
         values[0] = '';
-        // $display.text(values[2]);
       } else {
-        // console.log("Third");
         values[2] = operations[values[1]](values[2],values[0]);
         values[0] = '';
         values[1] = $input;
-        // $display.text(values[2]);
       }
       if (Number(values[0]) === ''){
-        // console.log("Fourth");
         values[1] = $input;
       }
-      // console.log("values[0] is " + values[0]);
-      // console.log("values[1] is " + values[1]);
-      // console.log("values[2] is " + values[2]);
-      // console.log("Operator is " + $input);
-      $display.text('')
     } else if ($input === '='){
+      if (values[1] === ''){
 
-      // console.log("===Equals before eval====");
-      // console.log("values[0] is " + values[0]);
-      // console.log("values[1] is " + values[1]);
-      // console.log("values[2] is " + values[2]);
-      // console.log("Operator is " + $input);
-      // console.log(operations[values[1]](values[2],values[0]));
+      }
       values[2] = operations[values[1]](values[2],values[0]);
-      // console.log("===Equals after eval====");
-      // console.log("values[0] is " + values[0]);
-      // console.log("values[1] is " + values[1]);
-      // console.log("values[2] is " + values[2]);
-      // console.log("Operator is " + $input);
-      $display.text(values[2]);
       values[3] = true;
     } else {
-      // console.log("==========Clear=========");
-      $display.text('');
       values = {0: '', 1: '', 2: '', 3: false};
     }
-        $display.text(values[2]);
+    $display.text(values[2]);
   }
 
   function changeDisplay (input){
