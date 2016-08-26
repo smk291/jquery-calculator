@@ -1,93 +1,62 @@
 'use strict'
 $(function(){
-  var firstTerm = 0;
+  var firstTerm = '';
+  var display = '';
   var operator = '';
-  var $screen = $('#screen');
-  var calculatedBool = false;
-  var result = 0;
-  var numberStorage = 0;
 
-
-//This function stores as functions and returns the values of the four operations
-  function operations (arg1, arg2, arg3) {
-    if (arg1 === "+"){
-      return Number(arg2) + Number(arg3);
-    } else if (arg1 === "-"){
-      return Number(arg2) - Number(arg3);
-    } else if (arg1 === "÷"){
-      return arg2 / arg3;
-    } else if (arg1 === "x"){
-      return arg2 * arg3;
+  function operations (op1) {
+    if (op1 === "+"){
+      return firstTerm + display;
+    } else if (op1 === "-"){
+      return firstTerm - display;
+    } else if (op1 === "÷"){
+      return firstTerm / display;
+    } else if (op1 === "x"){
+      return firstTerm * display;
     }
-
+  // return operations[op1];
   }
 
   $('.buttons').mousedown(function(event){
     var $eventText = $(event.target).text();
+    var isEventANumber = Number($(event.target).text());
+    var $screen = $('#screen');
 
-    function calculationAndDisplay(input){
-  //>If event text greater than or equal to 0
-      if (Number($eventText) >= 0)  {
-    //>>If a calculation was just performed, reset screen and all other values
-        if(calculatedBool){
-          $screen.text('');
-          firstTerm = 0;
-          operator = '';
-          calculatedBool = false;
-        }
-    //>>And then add digits to screen display
-        $screen.text($screen.text() + $eventText);
-    //>If 'clear' is pressed
-      } else if (event.target.id === 'clear'){
-      //>> If a calculation was just performed, reset screen and all other values
-          if (calculatedBool){
-            firstTerm = 0;
-            $screen.text('');
-            operator = '';
-            calculatedBool = false;
-          }
-      //>> And if the screen is empty
-          if ($screen.text() === ''){
-        //>>>Empty the firstTerm as well
-            firstTerm = 0;
-      //>>But if it isn't, empty just the screen
-          } else {
-            $screen.text('');
-          }
-    //>If the target is the equals button
-      } else if (event.target.id == 'equals'){
-      //>>Leave no numerical values blank.
-        if ($screen.text() === ''){
-          $screen.text(firstTerm);
-          calculatedBool = true;
-        } else
-      //>>And if a calculation was just performed
-        if(calculatedBool){
-        //>>>Run the operator on the screen text and the number stored when the function last ran
-          $screen.text(operations(operator, $screen.text(), numberStorage));
-      //>>Otherwise, if the firstTerm is a number, the operator is a string and the screen text is a number,
-        } else if (Number(firstTerm) && String(operator)){
-        //>>Return the result of the operation and put it on the screen
-          numberStorage = $screen.text();
-          $screen.text(operations(operator, firstTerm, $screen.text()));
-          calculatedBool = true
+    //This function controls the display
+    function setDisplay(input){
+      if (isEventANumber >= 0) {
+// Put text on display
+        display += $(event.target).text();
+//        console.log('Display is ' + display);
+        $screen.text(display);
+      } else if ($(event.target).id === 'clear'){
+        if ($screen.text() = ''){
+          firstTerm = '';
         } else {
-          $screen.text(numberStorage);
+          $screen.text('');
         }
-      //>Otherwise, the target isn't a number and isn't the clear button or the equal button, so it must be an operator
+      } else if (event.target.id == 'equals'){
+        console.log('equals')
+        if (Number(firstTerm) && operator && Number(display)){
+          firstTerm = Number(firstTerm);
+          display = Number(display);
+          console.log ('First term ' + firstTerm + ' ' + operator + ' ' + display + ' equals ' + operations(operator))
+          $screen.text(operations(operator));
+          display = operations(operator);
+        }
       } else {
-        //>>Make the firstTerm equal to the screen digits
-          firstTerm = $screen.text();
-        //>>Set the screen to 0
-          $screen.text('')
-        //>>See the operator to the operator
-          operator = $eventText;
-        //change "just calculated boolean" to false
-          calculatedBool = false;
+        firstTerm = $screen.text();
+        display = '';
+        console.log('First term: ' + firstTerm);
+        operator = $eventText;
+        console.log('Operator is ' + operator);
       }
     }
-    calculationAndDisplay(event);
+
+    setDisplay(event);
+
   })
+
 })
 
 
