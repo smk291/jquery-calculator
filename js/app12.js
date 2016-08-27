@@ -1,8 +1,9 @@
+"use strict"
+
 $(function() {
   var $display = $('#screen')
-  var operator = '';
-  var symbol = '';
-  var operand = '';
+  var operator, symbol, operand;
+
   var calculated = false;
 
   var operations = {
@@ -28,6 +29,12 @@ $(function() {
     return evaluation;
   }
 
+  function resetTerms(arr){
+    for (var i = 0; i < arr.length; i++){
+      arr[i] = "";
+    }
+  }
+
   $('.buttons').on('mousedown', 'span', calculator);
 
   function calculator(event) {
@@ -35,9 +42,9 @@ $(function() {
 
     if ($input >= 0) {
       if (calculated === true) {
-        operator = '';
-        operand = '';
-        symbol = '';
+        // operator = '';
+        // operand = '';
+        // symbol = '';
         calculated = false
       }
       operator = operator + $input;
@@ -56,8 +63,8 @@ $(function() {
     } else if ($input === '=') {
       if (operand === ''){
         operand = operator;
-        operator = '';
-        symbol = '';
+        // operator = '';
+        // symbol = '';
         calculated = true;
       } else if (operator !== ''){
         operand = evaluateFunction(symbol,operand,operator);
@@ -65,9 +72,9 @@ $(function() {
       }
       $display.text(operand);
     } else {
-      operator = '';
-      operand = '';
-      symbol = '';
+      // operator = '';
+      // operand = '';
+      // symbol = '';
       calculated = false;
       $display.text(operand);
     }
