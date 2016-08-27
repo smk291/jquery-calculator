@@ -37,7 +37,6 @@ $(function() {
 
   function calculator(event) {
     var $input = $(event.target).text();
-
     if ($input >= 0) {
       if (calculated === true) {
         operator = '';
@@ -60,9 +59,9 @@ $(function() {
       $display.text(operand);
     } else if ($input === '=') {
       if (operand === ''){
-        operand = operator;
         operator = '';
         symbol = '';
+        operand = operator;
         calculated = true;
       } else if (operator !== ''){
         operand = evaluateFunction(symbol,operand,operator);
