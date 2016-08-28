@@ -25,9 +25,8 @@ $(function() {
     if (evaluation === Infinity ) {
       return "ERROR";
       calculated = true;
-    } else {
-    return evaluation;
     }
+    return evaluation;
   }
 
   function clear (arr){
@@ -40,18 +39,10 @@ $(function() {
 
   function calculator(event) {
     var input = $(event.target).text();
-    if ($display.text() === "ERROR"){
-      operator = '';
-      operand = '';
-      symbol = '';
-    }
 
     if (input >= 0) {
       if (calculated === true) {
         clear([operator, operand, symbol]);
-        operator = '';
-        operand = '';
-        symbol = '';
         calculated = false
       }
       operator += input;
@@ -64,23 +55,20 @@ $(function() {
       } else if (operator !== ''){
         operand = evaluateFunction(symbol,operand,operator);
       }
-      operator = '';
+      clear([operator]);
       symbol = input;
       $display.text(operand);
     } else if (input === '=') {
       if (operand === ''){
         operand = operator;
-        operator = '';
-        symbol = '';
+        clear([operator, symbol]);
       } else if (operator !== ''){
         operand = evaluateFunction(symbol,operand,operator);
       }
       calculated = true;
       $display.text(operand);
     } else {
-      operator = '';
-      operand = '';
-      symbol = '';
+      clear([operator, operand, symbol]);
       $display.text(operand);
     }
   }
