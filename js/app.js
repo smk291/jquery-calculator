@@ -1,9 +1,9 @@
 $(function() {
-  var $display = $('#screen')
   var operator = '';
   var symbol = '';
   var operand = '';
   var calculated = false;
+  var $display = $('#screen')
 
   var operations = {
     "+": function add(val0, val1) {
@@ -30,12 +30,6 @@ $(function() {
     }
   }
 
-  function clear (arr){
-    for (var i = 0; i < arr.length; i++){
-      arr[i] = '';
-    }
-  }
-
   $('.buttons').on('mousedown', 'span', calculator);
 
   function calculator(event) {
@@ -48,7 +42,6 @@ $(function() {
 
     if (input >= 0) {
       if (calculated === true) {
-        clear([operator, operand, symbol]);
         operator = '';
         operand = '';
         symbol = '';
