@@ -24,9 +24,8 @@ $(function() {
     var evaluation = operations[symbol](operand, operator);
     if (evaluation === Infinity ) {
       return "ERROR";
-      calculated = true;
     } else {
-    return evaluation;
+      return evaluation;
     }
   }
 
@@ -45,7 +44,7 @@ $(function() {
         operator = '';
         operand = '';
         symbol = '';
-        calculated = false
+        calculated = false;
       }
       operator += input;
       $display.text(operator);
